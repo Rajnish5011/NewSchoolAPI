@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\All Projects\\Team Work\\NewSchoolAPI\\SchoolAPI\\SchoolAPI.csproj": {}
+    "C:\\Users\\rajat\\Desktop\\Project\\API\\SchoolAPI\\SchoolAPI.csproj": {}
   },
   "projects": {
-    "D:\\All Projects\\Team Work\\NewSchoolAPI\\SchoolAPI\\SchoolAPI.csproj": {
+    "C:\\Users\\rajat\\Desktop\\Project\\API\\SchoolAPI\\SchoolAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\All Projects\\Team Work\\NewSchoolAPI\\SchoolAPI\\SchoolAPI.csproj",
+        "projectUniqueName": "C:\\Users\\rajat\\Desktop\\Project\\API\\SchoolAPI\\SchoolAPI.csproj",
         "projectName": "SchoolAPI",
-        "projectPath": "D:\\All Projects\\Team Work\\NewSchoolAPI\\SchoolAPI\\SchoolAPI.csproj",
-        "packagesPath": "C:\\Users\\grajn\\.nuget\\packages\\",
-        "outputPath": "D:\\All Projects\\Team Work\\NewSchoolAPI\\SchoolAPI\\obj\\",
+        "projectPath": "C:\\Users\\rajat\\Desktop\\Project\\API\\SchoolAPI\\SchoolAPI.csproj",
+        "packagesPath": "C:\\Users\\rajat\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rajat\\Desktop\\Project\\API\\SchoolAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\grajn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rajat\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -50,6 +50,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.8, )"
@@ -61,6 +65,10 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.9, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             },
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
