@@ -15,7 +15,7 @@ using JwtClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
 
 namespace SchoolAPI.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -73,7 +73,7 @@ namespace SchoolAPI.Controllers
                 user = new { user }
             });
         }
-
+        [Authorize]
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
         {
