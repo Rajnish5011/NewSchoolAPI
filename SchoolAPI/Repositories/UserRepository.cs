@@ -1,4 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using SchoolAPI.Dtos;
 using SchoolAPI.Models;
 using System.Data;
@@ -89,6 +93,36 @@ namespace SchoolAPI.Repositories
                 }
             }
             return users;
+        }
+
+      
+        public async Task<List<RoleDto>> GetRolesAsync()
+        {
+            var roles = new List<RoleDto>();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_GetAllRoles", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    await con.OpenAsync();
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            roles.Add(new RoleDto
+                            {
+                                RoleId = reader.GetInt32(0),   // Column 0 -> RoleId
+                                RoleName = reader.GetString(1) // Column 1 -> RoleName
+                            });
+                        }
+                    }
+                }
+            }
+
+            return roles;
+
         }
     }
 }

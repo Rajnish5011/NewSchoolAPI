@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using SchoolAPI.Dtos;
 using SchoolAPI.Models;
 using SchoolAPI.Repositories;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -29,7 +30,7 @@ namespace SchoolAPI.Controllers
             _configuration = configuration;
         }
         [HttpPost("register")]
-        public async Task<IActionResult> UserRegistration(UserDto userdto, int roleId)
+        public async Task<IActionResult> register(UserDto userdto, int roleId)
         {
             var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
             bool result = await _repo.UserRegistration(userdto, roleId, ip);
@@ -83,6 +84,13 @@ namespace SchoolAPI.Controllers
                 return NotFound("User not found!");
             }
             return Ok (result);
+        }
+        [HttpGet("roles")]
+        public async Task<IActionResult> Getrolesdata()
+        {
+            var res = await _repo.GetRolesAsync();
+            return res.Any() ? Ok(res) : NotFound("No roles found");
+
         }
     }
 }
