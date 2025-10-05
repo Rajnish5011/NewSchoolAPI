@@ -85,6 +85,7 @@ namespace SchoolAPI.Controllers
             }
             return Ok (result);
         }
+        [Authorize]
         [HttpGet("roles")]
         public async Task<IActionResult> Getrolesdata()
         {
