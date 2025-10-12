@@ -124,5 +124,72 @@ namespace SchoolAPI.Repositories
             return roles;
 
         }
+
+        public async Task<DashboardMetrics> GetDashboardDetails()
+        {
+            DashboardMetrics dashDetails = null;
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetDashboardDashboardCounts", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    await con.OpenAsync();
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            dashDetails = new DashboardMetrics
+                            {
+                                TotalStudents = reader.GetInt32(reader.GetOrdinal("TotalStudents")),
+                                TotalClasses = reader.GetInt32(reader.GetOrdinal("TotalClasses")),
+                                TotalTeachers = reader.GetInt32(reader.GetOrdinal("TotalTeachers")),
+                                FeesCollectedThisMonth = reader.GetDecimal(reader.GetOrdinal("FeesCollectedThisMonth")),
+                                AttendanceTodayPercentage = reader.GetDecimal(reader.GetOrdinal("AttendanceTodayPercentage"))
+                            };
+                        }
+                    }
+                }
+            }
+
+            return dashDetails;
+        }
+
+        public async Task<IEnumerable<AttendanceDto>> GetAttendance(DateTime startDate, DateTime endDate)
+        {
+            var attendanceList = new List<AttendanceDto>();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("GetAttendanceByDateRange", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    // Pass parameters to the stored procedure
+                    cmd.Parameters.AddWithValue("@StartDate", startDate);
+                    cmd.Parameters.AddWithValue("@EndDate", endDate);
+
+                    await con.OpenAsync();
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            attendanceList.Add(new AttendanceDto
+                            {
+                                AttendanceId = reader.GetInt32(reader.GetOrdinal("AttendanceId")),
+                                StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                                AttendanceDate = reader.GetDateTime(reader.GetOrdinal("AttendanceDate")),
+                                AttendanceStatus = reader.GetString(reader.GetOrdinal("AttendanceStatus"))
+                            });
+                        }
+                    }
+                }
+            }
+
+            return attendanceList;
+        }
+
+
     }
 }

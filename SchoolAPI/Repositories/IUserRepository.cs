@@ -10,6 +10,9 @@ namespace SchoolAPI.Repositories
         Task<IEnumerable<UserResponse>> GetUsers();
        
         Task<List<RoleDto>> GetRolesAsync();
-        
+
+        Task<DashboardMetrics> GetDashboardDetails();
+        Task<IEnumerable<AttendanceDto>> GetAttendance(DateTime startDate, DateTime endDate);
+
     }
 }
